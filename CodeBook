@@ -18,13 +18,12 @@ For this project, a tidy data set called AveVariablebySubjectActivity was create
 
 
 ##The description for the data set is below:
-AverageVariablebySubjectActivity	Original Variable	Source File
-subject	subject	subject_test.txt 
+AverageVariablebySubjectActivity	|Original Variable	|Source Files
+subject|	|subject	|subject_test.txt 
 subject_train.txt
 activitylabel	Activitylabel	activity_labels.txt 
 Y_test.txt
-"avg-tBodyAcc-mean-X"	"tBodyAcc-mean()-X"	X_test.txt
-X_train.txt
+"avg-tBodyAcc-mean-X"	"tBodyAcc-mean()-X"	X_test.txt X_train.txt
 "avg-tBodyAcc-mean-Y"	"tBodyAcc-mean()-Y"	X_test.txt 
 X_train.txt
 "avg-tBodyAcc-mean-Z"	"tBodyAcc-mean()-Z"	X_test.txt
@@ -109,7 +108,7 @@ X_train.txt
 X_train.txt
 "avg-fBodyAcc-mean-Z"	"fBodyAcc-mean()-Z"	X_test.txt
 X_train.txt
-"avg-fBodyAcc-std-X"	"fBodyAcc-std()-X"	X_test.txt and X_train.txt
+"avg-fBodyAcc-std-X"	"fBodyAcc-std()-X"	X_test.txt X_train.txt
 "avg-fBodyAcc-std-Y"	"fBodyAcc-std()-Y"	X_test.txt
  X_train.txt
 "avg-fBodyAcc-std-Z"	"fBodyAcc-std()-Z"	X_test.txt
