@@ -7,31 +7,29 @@ options (warn=-1)
 
 library(dplyr)
 
-##Determine current working directory##
+##Step 1: Determine current working directory##
 getwd()
 
-##change wd if necessary##
+##Step 2: Change wd if necessary##
 setwd("C:/Users/cball/Documents/R/UCI HAR Dataset")
 
-##read labels data into tables##
+##Step 3: Read labels data into tables##
 activity_labels<-read.table("./activity_labels.txt")
 features<-read.table("./features.txt")
 
-##read test table data in as objects##
+##Step 4: ead test table data in as objects##
 subject_test<-read.table("./test/subject_test.txt")
 x_test<-read.table("./test/X_test.txt")
 y_test<-read.table("./test/y_test.txt")
 
 
-##read train table data in as objects##
+##Step 5: Read train table data in as objects##
 subject_train<-read.table("./train/subject_train.txt")
 x_train<-read.table("./train/X_train.txt")
 y_train<-read.table("./train/y_train.txt")
 
 
-##1. Merges training & test sets to create 1 data set for X, y & subject respectively
-##Merge tables into 3 respective entities.  x to x, y to y, and sub to ##
-##binding by rows##
+##Step 6: Merges training & test sets to create 1 data set for X, y & subject respectively merge tables into 3 respective entities.  x to x, y to y, and sub to binding by rows
 xreadings<-rbind(x_test,x_train)
 subjectconsol<-rbind(subject_test, subject_train)
 yactivity<-rbind(y_test, y_train)
@@ -42,13 +40,10 @@ dim(yactivity)
 
 
 
-##1. Merge consolidated training & test sets x, y and sub into 1 master via column bind##
+##Step 7: Merge consolidated training & test sets x, y and sub into 1 master via column bind##
 Mergeddata<-cbind(subjectconsol, yactivity, xreadings)
 
-##Add Column names to the merged and consolidated##
-##Assume the first column is the subject, 2nd column "activity" as 6 variables##
-##which correspond with 6 values in activity_labels.txt, and features were the##
-##x variable train and test data##
+##Step 8: Add Column names to the merged and consolidated Assume the first column is the subject, 2nd column "activity" as 6 variables which correspond with 6 values in activity_labels.txt, and features were the x variable train and test data
 colnames(Mergeddata) <- c("subject", "activity","tBodyAcc-mean()-X",
                         "tBodyAcc-mean()-Y",
                         "tBodyAcc-mean()-Z",
@@ -612,9 +607,7 @@ colnames(Mergeddata) <- c("subject", "activity","tBodyAcc-mean()-X",
                         "angle(Z,gravityMean)")
 
 
-##Per course instructions #2, extracts only the measurements that include##
-##the mean and standard deviation for each measurement into new table Mergeddata2##
-
+##Step 9: Per course instructions #2, extracts only the measurements that include the mean and standard deviation for each measurement into new table Mergeddata2
 
 Mergeddata2<-Mergeddata[,c("subject", "activity","tBodyAcc-mean()-X",
              "tBodyAcc-mean()-Y",
@@ -691,19 +684,19 @@ Mergeddata2<-Mergeddata[,c("subject", "activity","tBodyAcc-mean()-X",
              "angle(Z,gravityMean)")]
 
 
-## add correct activity labels to the consolidated table.##
+##Step 10: Add correct activity labels to the consolidated table
 ##Merge activity labels by linking activity (numeric value) and activity label.##
 Mergeddata3<-merge(Mergeddata2, activity_labels, by.x="activity", by.y = "V1")
 
 
-## Add the column name for activity labels##
+## Step 11: Add the column name for activity labels
 colnames(Mergeddata3)[colnames(Mergeddata3)=="V2"]<-"activitylabel"
 
-##Check for NA values##
+##Step 12: Check for NA values
 any(is.na(Mergeddata3))
 
 
-##Creates an independent tidy data set w/the average of each variable for each activity & each subject
+##Step 13: Creates an independent tidy data set w/the average of each variable for each activity & each subject
 AveVariablebySubjectActivity<-Mergeddata3%.%
       group_by(subject,activitylabel)%.%
       summarise("avg-tBodyAcc-mean-X"=mean(Mergeddata3$"tBodyAcc-mean()-X"),
@@ -782,9 +775,9 @@ AveVariablebySubjectActivity<-Mergeddata3%.%
       )
 
 
-##Take a look at/review the layout & data##
+##Step 14: Take a look at/review the layout & data
 head(AveVariablebySubjectActivity)
 
             
-##Save the table from prior step "AveVariablebySubjectActivity" to a text file for upload to Coursera##
+##Step 15: Save the table from prior step "AveVariablebySubjectActivity" to a text file for upload to Coursera
 write.table(x=AveVariablebySubjectActivity, file="./TidyData.txt", sep="\t")
