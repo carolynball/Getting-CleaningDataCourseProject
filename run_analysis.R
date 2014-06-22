@@ -37,7 +37,7 @@ dim(yactivity)
 
 
 
-##1. Merge consolidated training & test sets x, y and sub into 1 master via column bind##
+##Merge consolidated training & test sets x, y and sub into 1 master via column bind##
 Mergeddata<-cbind(subjectconsol, yactivity, xreadings)
 
 ##Add Column names to the merged and consolidated##
